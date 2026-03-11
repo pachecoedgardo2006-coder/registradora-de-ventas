@@ -1,29 +1,36 @@
-# Import the function and the list from the 'registrar' module
-from registrar import Add_sale
-from registrar import Sales
+from tkinter import messagebox, Tk
+from registrar import Add_sale, Sales
 
-# Display initial menu options
-print("--- MENU ---")
-print("1. Add sale \n2. Exit system\n")
+# Ocultar la ventana raíz de Tkinter para que solo salgan los diálogos
+root = Tk()
+root.withdraw()
 
-# Capture user option
-flag = input("Select Option: ")
+def main():
+    messagebox.showinfo("Welcome", "Starting Sales Control System")
+    
+    # Ciclo principal adaptado a tu lógica de 'flag'
+    continuar = True
+    while continuar:
+        Add_sale()
+        
+        # Usamos tu lógica de confirmación para seguir o salir
+        continuar = messagebox.askyesno("Confirm", "Do you want to add another sale?")
 
-# Loop to continue adding sales as long as the option is "1"
-while flag == "1":
-    Add_sale() # Calls the function to register a new product
-    print("\n--- MENU ---")
-    print("1. Add sale \n2. Exit system\n")
-    flag = input("Select option: ")
+    # Al finalizar, mostramos el resumen
+    if Sales:
+        report = "--- Sales History ---\n"  
+        for s in Sales:
+            report += f"Product: {s['product']} | Total: ${s['total']:.2f}\n"
+        
+        total_sum = sum(s['total'] for s in Sales)
+        report += f"\nAccumulated total: ${total_sum:.2f}"
+        
+        messagebox.showinfo("Final Report", report)
+    else:
+        messagebox.showwarning("Notice", "No sales were recorded.")
 
-# Display detailed list of all sales made
-print("\nSales history")
-for s in Sales:
-    print(f"Product Name: {s['product']} | Quantity sold: {s['quantity']} |Price per unit: ${s['unit price']} | Total ${s['total']}")
- 
-# Calculate the total amount by summing the 'total' key values in each dictionary
-total_sum = sum(s['total'] for s in Sales)
+    messagebox.showinfo("Exit", "System closed. Have a great day!")
 
-# Display the final accumulated total sum
-print(f"\nAccumulated total of all sales: ${total_sum}")
+if __name__ == "__main__":
+    main()
 

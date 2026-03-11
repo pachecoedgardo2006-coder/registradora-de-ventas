@@ -1,21 +1,29 @@
+from tkinter import messagebox, simpledialog
+
 Sales = []
+
 def Add_sale():
-    product_name = input("What is the product name: ")
-    try:
-        unit_price = float(input("What is the product unit price: "))
-        quantity_sold = int(input("What is the quantity sold: "))
-    except ValueError:
-        print("❌ Error: Please enter a valid number for price and quantity.")
-        return # Sale de la función sin guardar nada roto
-    total = quantity_sold * unit_price
-
-    sale = {
-        "product": product_name,
-        "quantity": quantity_sold,
-        "unit price": unit_price,
-        "total": total
-    }
-
+    # Pedimos los datos mediante ventanas emergentes
+    product_name = simpledialog.askstring("Product Data", "What is the product name?")
     
-    Sales.append(sale)
-    print(f"\nPRODUCT {product_name} --- QUANTITY SOLD {quantity_sold}--- TOTAL ${total}")
+    if product_name: # Verificamos que no haya cancelado la ventana
+        try:
+            unit_price = simpledialog.askfloat("Product Data", f"Price for {product_name}:")
+            quantity_sold = simpledialog.askinteger("Product Data", f"Quantity of {product_name} sold:")
+            
+            if unit_price is not None and quantity_sold is not None:
+                total = quantity_sold * unit_price
+                
+                sale = {
+                    "product": product_name,
+                    "quantity": quantity_sold,
+                    "unit price": unit_price,
+                    "total": total
+                }
+                
+                Sales.append(sale)
+                
+                # Confirmación visual del registro
+                messagebox.showinfo("Success", f"Product: {product_name}\nTotal: ${total:.2f}")
+        except ValueError:
+            messagebox.showerror("Error", "Invalid data entered.")
