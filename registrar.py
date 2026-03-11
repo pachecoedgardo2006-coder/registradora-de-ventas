@@ -1,8 +1,12 @@
 Sales = []
 def Add_sale():
     product_name = input("What is the product name: ")
-    unit_price = float(input("What is the product unit price: "))
-    quantity_sold = int(input("What is the quantity sold: "))
+    try:
+        unit_price = float(input("What is the product unit price: "))
+        quantity_sold = int(input("What is the quantity sold: "))
+    except ValueError:
+        print("❌ Error: Please enter a valid number for price and quantity.")
+        return # Sale de la función sin guardar nada roto
     total = quantity_sold * unit_price
 
     sale = {
