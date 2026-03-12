@@ -1,18 +1,18 @@
-# Sales Control System
+# Sales Control System (GUI Version)
 
-A lightweight **Python-based CLI application** designed to manage and track product sales. This project demonstrates modular programming by separating core logic from the user interface.
+A **Python-based Desktop Application** built with **Tkinter** to manage and track product sales through a unified graphical interface. This project demonstrates modular programming and real-time data validation in a desktop environment.
 
 ## 🚀 Features
 
-* **Interactive Menu**: Simple terminal-based navigation to add sales or exit the system.
-* **Automated Calculations**: Automatically computes the total for each entry ($Quantity \times Unit Price$).
-* **Sales History**: Displays a formatted summary of all transactions processed during the session.
-* **Total Accumulation**: Provides a final sum of all revenue generated across all entries.
+* **Unified Graphical Interface**: All operations occur in a single persistent window, eliminating disruptive pop-up dialogs.
+* **Real-Time Sales History**: Features a dynamic table that displays each transaction (Product, Quantity, and Total) as it is registered.
+* **Automatic Input Validation**: The system includes built-in checks to ensure product names are provided and that prices/quantities are valid positive numbers.
+* **Automated Calculations**: Instantly computes the total for each entry ($Quantity \times Unit Price$) and maintains a running accumulated total for the entire session.
 
 ## 🛠️ Project Structure
 
-* `main.py`: The entry point of the application containing the menu loop and reporting logic.
-* `registrar.py`: Handles data input, dictionary creation, and the global sales list.
+* **`main.py`**: The entry point that initializes the Tkinter root window and launches the application loop.
+* **`registrar.py`**: Contains the core `SalesApp` class, managing the interface layout, sales logic, and data validation.
 
 ## 💻 How to Run
 
@@ -29,16 +29,9 @@ A lightweight **Python-based CLI application** designed to manage and track prod
     python3 main.py
     ```
 
-## 📝 Usage Example
+## 📝 Usage Guide
 
-```text
---- MENU ---
-1. Add sale 
-2. Exit system
-
-Select Option: 1
-What is the product name: Laptop
-What is the product unit price: 800
-What is the quantity sold: 2
-
-PRODUCT Laptop --- QUANTITY SOLD 2 --- TOTAL $1600.0
+1.  **Enter Details**: Type the product name, unit price, and quantity into the provided text boxes.
+2.  **Add Sale**: Click the **"Add Sale"** button. If the data is valid, it will appear immediately in the history table below.
+3.  **Error Handling**: If invalid data is entered (e.g., text in a numeric field), the system will alert you without crashing.
+4.  **View Results**: The **"Accumulated Total"** at the bottom updates automatically with every new entry.
