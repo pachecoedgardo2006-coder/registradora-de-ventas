@@ -1,28 +1,28 @@
 from tkinter import messagebox, simpledialog
 
-# Lista global para almacenar los diccionarios de cada venta
+# Global list to store dictionaries for each sale transaction
 Sales = []
 
 def Add_sale():
-    # --- ENTRADA DE DATOS ---
-    # Usamos askstring para obtener el nombre (devuelve String o None si se cancela)
+    # --- DATA INPUT ---
+    # Use askstring to retrieve the product name (returns String or None if canceled)
     product_name = simpledialog.askstring("Product Data", "What is the product name?")
     
-    # Verificamos que el usuario no haya presionado "Cancelar" o dejado vacío el nombre
+    # Check that the user didn't press "Cancel" or leave the name field empty
     if product_name: 
         try:
-            # askfloat y askinteger validan automáticamente que el tipo de dato sea numérico
+            # askfloat and askinteger automatically validate that the input is a numeric type
             unit_price = simpledialog.askfloat("Product Data", f"Price for {product_name}:")
             quantity_sold = simpledialog.askinteger("Product Data", f"Quantity of {product_name} sold:")
             
-            # Verificamos que ambos valores existan (que no se haya cancelado ninguna ventana)
+            # Ensure both values exist (checking that no window was canceled)
             if unit_price is not None and quantity_sold is not None:
                 
-                # --- PROCESAMIENTO ---
-                # Calculamos el monto total de la transacción
+                # --- PROCESSING ---
+                # Calculate the total amount for the transaction
                 total = quantity_sold * unit_price
                 
-                # Estructuramos la información en un diccionario para fácil acceso
+                # Structure the information into a dictionary for easy access
                 sale = {
                     "product": product_name,
                     "quantity": quantity_sold,
@@ -30,13 +30,13 @@ def Add_sale():
                     "total": total
                 }
                 
-                # Guardamos el registro en nuestra lista principal
+                # Save the record into our main list
                 Sales.append(sale)
                 
-                # --- SALIDA / FEEDBACK ---
-                # Mostramos un mensaje de éxito con el total formateado a 2 decimales
+                # --- OUTPUT / FEEDBACK ---
+                # Display a success message with the total formatted to 2 decimal places
                 messagebox.showinfo("Success", f"Product: {product_name}\nTotal: ${total:.2f}")
                 
         except ValueError:
-            # En caso de que ocurra un error inesperado en la conversión de datos
+            # Handle any unexpected data conversion errors
             messagebox.showerror("Error", "Invalid data entered.")

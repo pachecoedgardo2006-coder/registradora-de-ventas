@@ -1,50 +1,53 @@
 from tkinter import messagebox, Tk
-# Importamos la función de registro y la lista compartida desde tu otro archivo
+# Import the registration function and the shared list from your other file
 from registrar import Add_sale, Sales
 
-# --- CONFIGURACIÓN DE TKINTER ---
-# Creamos la instancia principal (root) de Tkinter
+# --- TKINTER CONFIGURATION ---
+# Create the main Tkinter instance (root)
 root = Tk()
-# .withdraw() oculta la ventana gris vacía que aparece por defecto al usar Tkinter
-# Esto permite que solo veamos los cuadros de diálogo (pop-ups)
+# .withdraw() hides the empty gray window that appears by default in Tkinter
+# This ensures only the dialog boxes (pop-ups) are visible
 root.withdraw()
 
+
 def main():
-    # Bienvenida inicial al usuario
+    # Initial welcome message for the user
     messagebox.showinfo("Welcome", "Starting Sales Control System")
     
-    # --- CICLO DE CONTROL ---
-    # Usamos una variable booleana como 'bandera' para controlar el bucle
+    # --- CONTROL LOOP ---
+    # Use a boolean variable as a 'flag' to control the loop
     continuar = True
     while continuar:
-        # Llamamos a la función que definiste en el otro archivo
+        # Call the function defined in the external registrar file
         Add_sale()
         
-        # askyesno devuelve True si el usuario pulsa "Sí" y False si pulsa "No"
-        # Esto actualiza nuestra variable 'continuar' automáticamente
+        # askyesno returns True if the user clicks "Yes" and False if "No"
+        # This updates our 'continuar' variable automatically
         continuar = messagebox.askyesno("Confirm", "Do you want to add another sale?")
 
-    # --- GENERACIÓN DE REPORTE FINAL ---
-    # Verificamos si la lista 'Sales' tiene elementos antes de procesar
+    # --- FINAL REPORT GENERATION ---
+    # Check if the 'Sales' list contains any elements before processing
     if Sales:
         report = "--- Sales History ---\n"  
-        # Iteramos sobre la lista de diccionarios para construir una cadena de texto
+        # Iterate through the list of dictionaries to build a text string
         for s in Sales:
             report += f"Product: {s['product']} | Total: ${s['total']:.2f}\n"
         
-        # Calculamos la suma de todos los campos 'total' usando una expresión generadora
+        # Calculate the sum of all 'total' fields using a generator expression
         total_sum = sum(s['total'] for s in Sales)
         report += f"\nAccumulated total: ${total_sum:.2f}"
         
-        # Mostramos el resumen acumulado en una ventana informativa
+        # Display the accumulated summary in an information window
         messagebox.showinfo("Final Report", report)
     else:
-        # Si el usuario cerró las ventanas sin registrar nada, lanzamos un aviso
+        # If the user closed windows without registering anything, show a warning
         messagebox.showwarning("Notice", "No sales were recorded.")
 
-    # Mensaje de despedida antes de que el script termine su ejecución
+    # Farewell message before the script ends execution
     messagebox.showinfo("Exit", "System closed. Have a great day!")
 
-# Punto de entrada estándar de Python para ejecutar la función main
+# Standard Python entry point to execute the main function
 if __name__ == "__main__":
     main()
+
+    
